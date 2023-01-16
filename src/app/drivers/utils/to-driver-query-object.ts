@@ -1,12 +1,7 @@
 import { Params } from '@angular/router';
 import { toQueryObject } from '../../core/utils';
-import { DriverQuery } from '../drivers';
+import { DriverQuery } from '../../core/types';
 
 export function toDriverQueryObject(params: Params) {
-  const queryObject = toQueryObject(params) as DriverQuery;
-  if (!queryObject.limit) {
-    queryObject.limit = 10;
-  }
-
-  return queryObject;
+  return toQueryObject(params) as DriverQuery;
 }

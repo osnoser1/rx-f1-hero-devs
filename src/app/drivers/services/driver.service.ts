@@ -1,8 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpService } from '../../core/services';
-import { FormulaOneListResponse } from '../../core/types';
+import { Driver, DriverQuery, FormulaOneListResponse } from '../../core/types';
 import { getFormulaOneParams, toListResponse } from '../../core/utils';
-import { Driver, DriverQuery } from '../drivers';
 
 @Injectable()
 export class DriverService {

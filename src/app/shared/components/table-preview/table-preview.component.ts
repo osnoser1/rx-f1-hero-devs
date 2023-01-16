@@ -34,6 +34,7 @@ export class TablePreviewComponent<T> implements OnChanges {
   @Input() loading: Nil<boolean>;
   @Input() query: Nil<PageQuery>;
   @Input() columns!: TablePreviewColumn<T>[];
+  @Input() showPagination = true;
 
   @Output() queryChange = new EventEmitter<PageQuery>();
 

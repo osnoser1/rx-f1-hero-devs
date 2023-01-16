@@ -4,27 +4,33 @@ import { isNil, kebabCase, omitBy } from 'lodash-es';
 import { QueryParamValue } from '../types';
 
 export function toQueryObject(params: Params) {
-  return Object.entries(toCamelCase(params)).reduce(
+  const queryObject = Object.entries(toCamelCase(params)).reduce(
     (obj, [key, value]) => ({
       ...obj,
       [key]: key === 'page' || key === 'limit' ? Number(value) : value,
     }),
     {} as Record<string, any>,
   );
+  if (!queryObject['limit']) {
+    queryObject['limit'] = 10;
+  }
+
+  return queryObject;
 }
 
 export function toQueryParams(query: Record<string, any>) {
-  query = omitBy(query, (value, key) => {
-    const isOmitted =
-      isNil(value) || value === '' || (key === 'page' && value === 0);
-
-    return isOmitted;
-  });
-
   return Object.keys(query)
     .sort()
     .reduce(
-      (obj, key) => ({ ...obj, [kebabCase(key)]: query[key] }),
+      (obj, key) => ({
+        ...obj,
+        [kebabCase(key)]:
+          query[key] !== '' &&
+          (key !== 'page' || query[key] !== 0) &&
+          (key !== 'limit' || query[key] !== 10)
+            ? query[key]
+            : null,
+      }),
       {} as Record<string, QueryParamValue>,
     );
 }

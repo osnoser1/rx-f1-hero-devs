@@ -1,0 +1,16 @@
+<mat-form-field>
+  <mat-select
+    appSelectFilter="season"
+    placeholder="Season"
+    [value]="query?.season"
+    (queryChange)="queryChange.emit($event)"
+  >
+    <mat-option [value]="2018">Select a season</mat-option>
+    <mat-option
+      *ngFor="let season of [2018, 2019, 2020, 2021, 2022]"
+      [value]="season"
+    >
+      {{ season }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>

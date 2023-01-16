@@ -38,6 +38,7 @@
 </mat-table>
 
 <mat-paginator
+  *ngIf="showPagination"
   showFirstLastButtons
   [length]="data?.count"
   [pageIndex]="query?.page"

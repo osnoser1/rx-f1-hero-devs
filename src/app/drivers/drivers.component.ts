@@ -1,13 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { DriversFacade } from './services/drivers.facade';
 import {
   TablePreviewComponent,
   TablePreviewColumn,
 } from '../shared/components';
-import { Driver } from './drivers';
-import { PageQuery } from '../core/types';
-import { Router } from '@angular/router';
+import { Driver, PageQuery } from '../core/types';
 import { toQueryParams } from '../core/utils';
 
 @Component({
