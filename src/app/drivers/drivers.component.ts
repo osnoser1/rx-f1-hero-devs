@@ -7,9 +7,8 @@ import {
   TablePreviewColumn,
 } from '../shared/components';
 import { Driver, PageQuery } from '../core/types';
-import { toQueryParams } from '../core/utils';
 import { FiltersComponent } from './filters/filters.component';
-import { toRaceQueryParams } from './utils/driver-query-object';
+import { toDriverQueryParams } from './utils/driver-query-object';
 
 @Component({
   selector: 'app-drivers',
@@ -52,7 +51,7 @@ export class DriversComponent {
 
   async onQueryChange(query: PageQuery) {
     return await this.router.navigate([], {
-      queryParams: toRaceQueryParams({
+      queryParams: toDriverQueryParams({
         ...this.route.snapshot.queryParams,
         ...query,
       }),

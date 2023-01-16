@@ -1,7 +1,7 @@
 import { Params } from '@angular/router';
 import { cloneDeep } from 'lodash-es';
 import { toQueryObject, toQueryParams } from '../../core/utils';
-import { DeepNullable, RaceQuery } from '../../core/types';
+import { RaceQuery } from '../../core/types';
 
 export function toRaceQueryObject(params: Params) {
   const queryObject = toQueryObject(params) as RaceQuery;
@@ -9,10 +9,10 @@ export function toRaceQueryObject(params: Params) {
   return queryObject;
 }
 
-export function toRaceQueryParams(query: DeepNullable<RaceQuery>) {
+export function toRaceQueryParams(query: RaceQuery) {
   const updatedQuery = cloneDeep(query);
   if (updatedQuery.season === 2018) {
-    updatedQuery.season = null;
+    delete updatedQuery.season;
   }
 
   return toQueryParams(updatedQuery);
