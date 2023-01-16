@@ -1,4 +1,5 @@
 import { catchError, defer, finalize, map, Observable, of } from 'rxjs';
+import { get } from 'lodash-es';
 import { FormulaOneListResponse } from '../types/formula-one-list-response';
 import { ListResponse } from '../types/list-response';
 
@@ -19,12 +20,12 @@ export const indicate =
     );
 
 export const toListResponse =
-  <T>(key: string) =>
+  <T>(key: string, innerKey?: string) =>
   (source: Observable<FormulaOneListResponse>): Observable<ListResponse<T>> =>
     source.pipe(
       map(({ MRData: response }) => ({
         count: Number(response.total),
-        result: response[`${key}Table`][`${key}s`],
+        result: get(response[`${key}Table`], innerKey ?? `${key}s`),
       })),
       catchError(_ => of({ result: [], count: 0 })),
     );

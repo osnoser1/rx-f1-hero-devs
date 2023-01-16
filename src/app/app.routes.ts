@@ -4,4 +4,8 @@ export const appRoutes: Routes = [
   { path: 'drivers', loadChildren: () => import('./drivers/routes') },
   { path: 'races', loadChildren: () => import('./races/routes') },
   { path: 'qualifying', loadChildren: () => import('./qualifying/routes') },
+  {
+    path: 'driver-standings',
+    loadChildren: () => import('./driver-standings/routes'),
+  },
 ];
