@@ -1,20 +1,7 @@
 import { Driver } from './driver';
 import { PageQuery } from '../page-query';
 import { Constructor } from './constructor';
-
-export interface Location {
-  lat: string;
-  long: string;
-  locality: string;
-  country: string;
-}
-
-export interface Circuit {
-  circuitId: string;
-  url: string;
-  circuitName: string;
-  Location: Location;
-}
+import { Circuit } from './circuit';
 
 export interface Time {
   millis?: string;

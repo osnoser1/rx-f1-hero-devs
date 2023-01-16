@@ -1,18 +1,19 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RacesFacade } from '../races/services/races.facade';
+import { QualifyingFacade } from './services/qualifying.facade';
 import {
-  FullScreenLoadingSpinnerComponent,
-  TablePreviewColumn,
   TablePreviewComponent,
+  TablePreviewColumn,
+  FullScreenLoadingSpinnerComponent,
 } from '../shared/components';
-import { PageQuery, RaceResult } from '../core/types';
+import { Qualifying, PageQuery, QualifyingResult } from '../core/types';
 import { FiltersComponent } from './filters/filters.component';
-import { toRaceQueryParams } from './utils/race-query-object';
+import { toQualifyingQueryParams } from './utils/qualifying-query-object';
 
 @Component({
-  selector: 'app-races',
+  selector: 'app-qualifying',
   standalone: true,
   imports: [
     CommonModule,
@@ -20,16 +21,16 @@ import { toRaceQueryParams } from './utils/race-query-object';
     TablePreviewComponent,
     FullScreenLoadingSpinnerComponent,
   ],
-  templateUrl: './races.component.html',
-  styleUrls: ['./races.component.scss'],
+  templateUrl: './qualifying.component.html',
+  styleUrls: ['./qualifying.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RacesComponent {
-  facade = inject(RacesFacade);
+export class QualifyingComponent {
+  facade = inject(QualifyingFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
 
-  columns: TablePreviewColumn<RaceResult>[] = [
+  columns: TablePreviewColumn<QualifyingResult>[] = [
     { name: 'pos', title: 'Pos', value: entity => entity.position },
     { name: 'no', title: 'No', value: entity => entity.number },
     {
@@ -42,16 +43,14 @@ export class RacesComponent {
       title: 'Constructor',
       value: ({ Constructor }) => Constructor.name,
     },
-    { name: 'laps', title: 'Laps', value: entity => entity.laps },
-    { name: 'grid', title: 'Grid', value: entity => entity.grid },
-    { name: 'time', title: 'Time', value: ({ Time }) => Time?.time ?? '' },
-    { name: 'status', title: 'Status', value: entity => entity.status },
-    { name: 'points', title: 'Points', value: entity => entity.points },
+    { name: 'q1', title: 'Q1', value: entity => entity.Q1 },
+    { name: 'q2', title: 'Q2', value: entity => entity.Q2 },
+    { name: 'q3', title: 'Q3', value: entity => entity.Q3 },
   ];
 
   async onQueryChange(query: PageQuery) {
     return await this.router.navigate([], {
-      queryParams: toRaceQueryParams({
+      queryParams: toQualifyingQueryParams({
         ...this.route.snapshot.queryParams,
         ...query,
       }),

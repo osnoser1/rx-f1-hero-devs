@@ -1,4 +1,4 @@
-<h1>Races per season with final results</h1>
+<h1>Qualifying Results per race</h1>
 <app-filters
   [query]="facade.queryParams$ | async"
   (queryChange)="onQueryChange($event)"
@@ -8,7 +8,7 @@
     <h2>{{ race.season }} {{ race.raceName }}</h2>
     <app-table-preview
       [columns]="columns"
-      [data]="{ count: data.count, result: race.Results }"
+      [data]="{ count: data.count, result: race.QualifyingResults }"
       [query]="facade.queryParams$ | async"
       [showPagination]="last"
       (queryChange)="onQueryChange($event)"
