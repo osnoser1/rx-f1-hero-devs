@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, shareReplay, switchMap } from 'rxjs';
+import { delay, map, shareReplay, switchMap } from 'rxjs';
 import { DriverService } from './driver.service';
 import { toDriverQueryObject } from '../utils/to-driver-query-object';
 import { LoadingService } from '../../core/services';
@@ -17,8 +17,11 @@ export class DriversFacade {
   );
   data$ = this.queryParams$.pipe(
     switchMap(query =>
-      this.driverService.getAll(query).pipe(indicate(this.loading)),
+      this.driverService
+        .getAll(query)
+        .pipe(delay(3000), indicate(this.loading)),
     ),
     shareReplay(1),
   );
+  loading$ = this.loading.isLoading$;
 }

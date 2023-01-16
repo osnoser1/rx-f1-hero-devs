@@ -10,7 +10,6 @@ export class DriverService {
   private readonly path = 'drivers.json';
 
   getAll(query?: DriverQuery) {
-    console.log(query);
     const params = getFormulaOneParams(query ?? {});
     return this.http
       .get<FormulaOneListResponse>(this.path, { params })

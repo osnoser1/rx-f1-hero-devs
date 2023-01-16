@@ -1,6 +1,7 @@
 import { Params } from '@angular/router';
 import { toCamelCase } from './to-camel-case';
 import { isNil, kebabCase, omitBy } from 'lodash-es';
+import { QueryParamValue } from '../types';
 
 export function toQueryObject(params: Params) {
   return Object.entries(toCamelCase(params)).reduce(
@@ -24,6 +25,6 @@ export function toQueryParams(query: Record<string, any>) {
     .sort()
     .reduce(
       (obj, key) => ({ ...obj, [kebabCase(key)]: query[key] }),
-      {} as Record<string, number | string | undefined>,
+      {} as Record<string, QueryParamValue>,
     );
 }

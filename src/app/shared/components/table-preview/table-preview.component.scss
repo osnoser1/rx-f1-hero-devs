@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  position: relative;
+}
+
+.table-spinner {
+  align-items: center;
+  display: flex;
+  height: 350px;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.table {
+  min-height: 350px;
+}

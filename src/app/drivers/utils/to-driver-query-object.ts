@@ -3,5 +3,10 @@ import { toQueryObject } from '../../core/utils';
 import { DriverQuery } from '../drivers';
 
 export function toDriverQueryObject(params: Params) {
-  return toQueryObject(params) as DriverQuery;
+  const queryObject = toQueryObject(params) as DriverQuery;
+  if (!queryObject.limit) {
+    queryObject.limit = 10;
+  }
+
+  return queryObject;
 }

@@ -5,6 +5,7 @@ export interface Driver {
   url: string;
   givenName: string;
   familyName: string;
+  permanentNumber: string;
   dateOfBirth: string;
   nationality: string;
 }
