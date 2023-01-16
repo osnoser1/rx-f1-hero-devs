@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, shareReplay, switchMap } from 'rxjs';
 import { DriverService } from './driver.service';
-import { toDriverQueryObject } from '../utils/to-driver-query-object';
+import { toDriverQueryObject } from '../utils/driver-query-object';
 import { LoadingService } from '../../core/services';
 import { indicate } from '../../core/utils';
 

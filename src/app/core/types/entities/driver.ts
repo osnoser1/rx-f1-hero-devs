@@ -11,4 +11,6 @@ export interface Driver {
   nationality: string;
 }
 
-export type DriverQuery = PageQuery;
+export interface DriverQuery extends PageQuery {
+  season?: number;
+}

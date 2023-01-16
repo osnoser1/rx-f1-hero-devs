@@ -8,7 +8,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { Nil, RaceQuery } from '../../core/types';
+import { DriverQuery, Nil } from '../../core/types';
 import { SelectFilterDirective } from '../../shared/directives';
 
 @Component({
@@ -25,7 +25,7 @@ import { SelectFilterDirective } from '../../shared/directives';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersComponent {
-  @Input() query: Nil<RaceQuery>;
+  @Input() query: Nil<DriverQuery>;
 
-  @Output() queryChange = new EventEmitter<RaceQuery>();
+  @Output() queryChange = new EventEmitter<DriverQuery>();
 }
