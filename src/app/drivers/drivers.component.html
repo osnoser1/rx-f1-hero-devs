@@ -1,10 +1,8 @@
 <h1>Drivers per season</h1>
-<div>
-  <app-table-preview
-    [columns]="columns"
-    [data]="facade.data$ | async"
-    [loading]="facade.loading$ | async"
-    [query]="facade.queryParams$ | async"
-    (queryChange)="onQueryChange($event)"
-  ></app-table-preview>
-</div>
+<app-table-preview
+  [columns]="columns"
+  [data]="facade.data$ | async"
+  [loading]="facade.loading$ | async"
+  [query]="facade.queryParams$ | async"
+  (queryChange)="onQueryChange($event)"
+></app-table-preview>

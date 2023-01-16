@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  HostBinding,
   Input,
   OnChanges,
   Output,
@@ -35,6 +36,8 @@ export class TablePreviewComponent<T> implements OnChanges {
   @Input() columns!: TablePreviewColumn<T>[];
 
   @Output() queryChange = new EventEmitter<PageQuery>();
+
+  @HostBinding('class.mat-elevation-z8') elevation = true;
 
   displayedColumns: string[] = [];
 

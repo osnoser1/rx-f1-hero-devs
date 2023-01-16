@@ -1,17 +1,19 @@
 :host {
-  display: block;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  overflow: hidden;
   position: relative;
 }
 
 .table-spinner {
   align-items: center;
   display: flex;
-  height: 350px;
+  height: 100%;
   justify-content: center;
   position: absolute;
   width: 100%;
 }
 
 .table {
-  min-height: 350px;
+  overflow: auto;
 }
