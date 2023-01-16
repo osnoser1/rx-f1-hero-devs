@@ -1,0 +1,53 @@
+<div class="table-spinner" *ngIf="loading">
+  <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+</div>
+
+<ng-template #linkTemplate let-column="column" let-element="element">
+  <a target="_blank" [href]="get(column.value.url, element)">{{
+    get(column.value.text, element)
+  }}</a>
+</ng-template>
+
+<ng-template #normalTextTemplate let-column="column" let-element="element">{{
+  get(column.value, element)
+}}</ng-template>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="data?.result ?? []" class="table">
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
+      <th mat-header-cell *matHeaderCellDef="let element">
+        {{ get(column.title, element) }}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <ng-container
+          *ngTemplateOutlet="
+            column.type === 'link' ? linkTemplate : normalTextTemplate;
+            context: { column, element }
+          "
+        >
+        </ng-container>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    showFirstLastButtons
+    [length]="data?.count"
+    [pageIndex]="query?.page"
+    [pageSize]="query?.limit"
+    [pageSizeOptions]="[10, 15, 25]"
+    (page)="
+      queryChange.emit({
+        page: $event.pageSize === query?.limit ? $event.pageIndex : 0,
+        limit: $event.pageSize
+      })
+    "
+  >
+  </mat-paginator>
+</div>
