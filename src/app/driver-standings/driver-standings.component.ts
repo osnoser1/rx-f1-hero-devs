@@ -16,6 +16,7 @@ import { toDriverStandingsQueryParams } from './utils/driver-standings-query-obj
   imports: [CommonModule, FiltersComponent, TablePreviewComponent],
   templateUrl: './driver-standings.component.html',
   styleUrls: ['./driver-standings.component.scss'],
+  providers: [DriverStandingsFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DriverStandingsComponent {

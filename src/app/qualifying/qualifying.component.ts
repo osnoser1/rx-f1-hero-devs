@@ -23,6 +23,7 @@ import { toQualifyingQueryParams } from './utils/qualifying-query-object';
   ],
   templateUrl: './qualifying.component.html',
   styleUrls: ['./qualifying.component.scss'],
+  providers: [QualifyingFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QualifyingComponent {

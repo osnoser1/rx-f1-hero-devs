@@ -16,6 +16,7 @@ import { toDriverQueryParams } from './utils/driver-query-object';
   imports: [CommonModule, FiltersComponent, TablePreviewComponent],
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss'],
+  providers: [DriversFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DriversComponent {

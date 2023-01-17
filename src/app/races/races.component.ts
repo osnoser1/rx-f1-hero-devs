@@ -22,6 +22,7 @@ import { toRaceQueryParams } from './utils/race-query-object';
   ],
   templateUrl: './races.component.html',
   styleUrls: ['./races.component.scss'],
+  providers: [RacesFacade],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RacesComponent {
