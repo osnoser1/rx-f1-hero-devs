@@ -2,6 +2,7 @@ import type { Routes } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 
 export const appRoutes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'drivers' },
   {
     path: '',
     component: LayoutComponent,
