@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { isNumber } from 'lodash-es';
 import { HttpService } from '../../core/services';
 import { Driver, DriverQuery, FormulaOneListResponse } from '../../core/types';
 import { getFormulaOneParams, toListResponse } from '../../core/utils';
@@ -9,9 +10,11 @@ export class DriverService {
   private readonly path = 'drivers.json';
 
   getAll(query?: DriverQuery) {
-    const params = getFormulaOneParams(query ?? {});
+    const { season, ...rest } = query ?? {};
+    const params = getFormulaOneParams(rest);
+    const seasonPath = isNumber(season) ? `${season}/` : '';
     return this.http
-      .get<FormulaOneListResponse>(this.path, { params })
+      .get<FormulaOneListResponse>(`${seasonPath}${this.path}`, { params })
       .pipe(toListResponse<Driver>('Driver'));
   }
 }

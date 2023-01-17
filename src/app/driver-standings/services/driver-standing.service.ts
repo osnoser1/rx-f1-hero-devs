@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { isNumber } from 'lodash-es';
 import { HttpService } from '../../core/services';
 import {
   DriverStanding,
@@ -6,7 +7,6 @@ import {
   FormulaOneListResponse,
 } from '../../core/types';
 import { getFormulaOneParams, toListResponse } from '../../core/utils';
-import { tap } from 'rxjs';
 
 @Injectable()
 export class DriverStandingService {
@@ -15,9 +15,9 @@ export class DriverStandingService {
 
   getAll(query?: DriverStandingQuery) {
     const { season, round, ...rest } = query ?? {};
-    const params = getFormulaOneParams(rest ?? {});
-    const seasonPath = season ? `${season}/` : '';
-    const roundPath = round ? `${round}/` : '';
+    const params = getFormulaOneParams(rest);
+    const seasonPath = isNumber(season) ? `${season}/` : '';
+    const roundPath = isNumber(round) ? `${round}/` : '';
     return this.http
       .get<FormulaOneListResponse>(`${seasonPath}${roundPath}${this.path}`, {
         params,
@@ -27,7 +27,6 @@ export class DriverStandingService {
           'Standings',
           'StandingsLists[0].DriverStandings',
         ),
-        tap(console.log),
       );
   }
 }

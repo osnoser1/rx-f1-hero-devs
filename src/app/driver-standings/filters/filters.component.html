@@ -1,4 +1,5 @@
 <mat-form-field>
+  <mat-label>Season</mat-label>
   <mat-select
     appSelectFilter="season"
     placeholder="Season"
@@ -15,9 +16,9 @@
 </mat-form-field>
 
 <mat-form-field [ngStyle]="{ marginLeft: '20px' }">
+  <mat-label>Round</mat-label>
   <mat-select
     appSelectFilter="round"
-    placeholder="Round"
     [value]="query?.round"
     (queryChange)="queryChange.emit($event)"
   >

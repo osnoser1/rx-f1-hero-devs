@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { isNumber } from 'lodash-es';
 import { HttpService } from '../../core/services';
 import {
   Qualifying,
@@ -15,8 +16,8 @@ export class QualifyingService {
   getAll(query?: QualifyingQuery) {
     const { season, round, ...rest } = query ?? {};
     const params = getFormulaOneParams(rest ?? {});
-    const seasonPath = season ? `${season}/` : '';
-    const roundPath = round ? `${round}/` : '';
+    const seasonPath = isNumber(season) ? `${season}/` : '';
+    const roundPath = isNumber(round) ? `${round}/` : '';
     return this.http
       .get<FormulaOneListResponse>(`${seasonPath}${roundPath}${this.path}`, {
         params,

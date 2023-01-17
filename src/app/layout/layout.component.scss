@@ -1,0 +1,19 @@
+:host {
+  display: grid;
+  grid-template-rows: auto;
+  overflow: auto;
+}
+
+.drawer-container {
+  background-color: transparent;
+}
+
+.sidebar {
+}
+
+.content {
+  display: grid;
+  height: calc(100% - 64px);
+  grid-template-rows: 0;
+  padding: 32px 20px;
+}

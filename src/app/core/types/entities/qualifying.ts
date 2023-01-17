@@ -25,6 +25,6 @@ export interface Qualifying {
 }
 
 export interface QualifyingQuery extends PageQuery {
-  round?: number;
+  round?: number | string;
   season?: number;
 }
