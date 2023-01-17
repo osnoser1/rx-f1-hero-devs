@@ -13,6 +13,7 @@ export const appRoutes: Routes = [
         path: 'driver-standings',
         loadChildren: () => import('./driver-standings/routes'),
       },
+      { path: 'statistics', loadChildren: () => import('./statistics/routes') },
     ],
   },
 ];

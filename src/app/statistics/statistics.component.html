@@ -1,0 +1,9 @@
+<h1>2021 season statistics</h1>
+<ul>
+  <li>Cars "Finished": {{ (data$ | async)?.finished || '...' }}</li>
+  <li>Cars with an "Accident": {{ (data$ | async)?.accident || '...' }}</li>
+  <li>Cars with finished +1 Lap: {{ (data$ | async)?.plusOneLap || '...' }}</li>
+</ul>
+<app-full-screen-loading-spinner
+  *ngIf="loading.isLoading$ | async"
+></app-full-screen-loading-spinner>
