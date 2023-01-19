@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QualifyingFacade } from './services/qualifying.facade';
 import {
@@ -8,9 +7,10 @@ import {
   TablePreviewColumn,
   FullScreenLoadingSpinnerComponent,
 } from '../shared/components';
-import { Qualifying, PageQuery, QualifyingResult } from '../core/types';
+import { QualifyingResult } from '../core/types';
 import { FiltersComponent } from './filters/filters.component';
 import { toQualifyingQueryParams } from './utils/qualifying-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-qualifying',
@@ -30,6 +30,7 @@ export class QualifyingComponent {
   facade = inject(QualifyingFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toQualifyingQueryParams);
 
   columns: TablePreviewColumn<QualifyingResult>[] = [
     { name: 'pos', title: 'Pos', value: entity => entity.position },
@@ -48,13 +49,4 @@ export class QualifyingComponent {
     { name: 'q2', title: 'Q2', value: entity => entity.Q2 },
     { name: 'q3', title: 'Q3', value: entity => entity.Q3 },
   ];
-
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toQualifyingQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
 }

@@ -6,9 +6,10 @@ import {
   TablePreviewComponent,
   TablePreviewColumn,
 } from '../shared/components';
-import { DriverStanding, PageQuery } from '../core/types';
+import { DriverStanding } from '../core/types';
 import { FiltersComponent } from './filters/filters.component';
 import { toDriverStandingsQueryParams } from './utils/driver-standings-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-driver-standings',
@@ -23,6 +24,7 @@ export class DriverStandingsComponent {
   facade = inject(DriverStandingsFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toDriverStandingsQueryParams);
 
   columns: TablePreviewColumn<DriverStanding>[] = [
     { name: 'pos', title: 'Pos', value: entity => entity.position },
@@ -39,13 +41,4 @@ export class DriverStandingsComponent {
     { name: 'points', title: 'Points', value: entity => entity.points },
     { name: 'wins', title: 'Wins', value: entity => entity.wins },
   ];
-
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toDriverStandingsQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
 }

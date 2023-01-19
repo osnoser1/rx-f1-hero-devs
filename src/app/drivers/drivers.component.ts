@@ -6,9 +6,10 @@ import {
   TablePreviewComponent,
   TablePreviewColumn,
 } from '../shared/components';
-import { Driver, PageQuery } from '../core/types';
+import { Driver } from '../core/types';
 import { FiltersComponent } from './filters/filters.component';
 import { toDriverQueryParams } from './utils/driver-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-drivers',
@@ -23,6 +24,7 @@ export class DriversComponent {
   facade = inject(DriversFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toDriverQueryParams);
 
   columns: TablePreviewColumn<Driver>[] = [
     { name: 'id', title: 'Id', value: entity => entity.driverId },
@@ -49,13 +51,4 @@ export class DriversComponent {
       type: 'link',
     },
   ];
-
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toDriverQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
 }

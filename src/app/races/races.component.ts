@@ -7,9 +7,10 @@ import {
   TablePreviewColumn,
   TablePreviewComponent,
 } from '../shared/components';
-import { PageQuery, RaceResult } from '../core/types';
+import { RaceResult } from '../core/types';
 import { FiltersComponent } from './filters/filters.component';
 import { toRaceQueryParams } from './utils/race-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-races',
@@ -29,6 +30,7 @@ export class RacesComponent {
   facade = inject(RacesFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toRaceQueryParams);
 
   columns: TablePreviewColumn<RaceResult>[] = [
     { name: 'pos', title: 'Pos', value: entity => entity.position },
@@ -49,13 +51,4 @@ export class RacesComponent {
     { name: 'status', title: 'Status', value: entity => entity.status },
     { name: 'points', title: 'Points', value: entity => entity.points },
   ];
-
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toRaceQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
 }
