@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { delay, map, Observable, of, retry } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class ErrorService {
   private condition?: (error: Error | HttpErrorResponse) => Observable<boolean>;
 

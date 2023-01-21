@@ -5,9 +5,7 @@ import { API_URL } from '../tokens';
 import { QueryParamValue } from '../types';
 import { ErrorService } from './error.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class HttpService {
   private readonly error = inject(ErrorService);
   private readonly http = inject(HttpClient);

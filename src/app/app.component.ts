@@ -9,6 +9,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  title = 'rx-f1-hero-devs';
-}
+export class AppComponent {}
