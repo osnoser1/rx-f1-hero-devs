@@ -10,14 +10,14 @@ export const appRoutes: Routes = [
     component: LayoutComponent,
     providers: [{ provide: ON_QUERY_CHANGE_FUNC, useValue: getOnQueryChange }],
     children: [
-      { path: 'drivers', loadChildren: () => import('./drivers/routes') },
-      { path: 'races', loadChildren: () => import('./races/routes') },
-      { path: 'qualifying', loadChildren: () => import('./qualifying/routes') },
+      { path: 'drivers', loadChildren: () => import('./drivers') },
+      { path: 'races', loadChildren: () => import('./races') },
+      { path: 'qualifying', loadChildren: () => import('./qualifying') },
       {
         path: 'driver-standings',
-        loadChildren: () => import('./driver-standings/routes'),
+        loadChildren: () => import('./driver-standings'),
       },
-      { path: 'statistics', loadChildren: () => import('./statistics/routes') },
+      { path: 'statistics', loadChildren: () => import('./statistics') },
     ],
   },
 ];
