@@ -33,22 +33,17 @@ export class RacesComponent {
   onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toRaceQueryParams);
 
   columns: TablePreviewColumn<RaceResult>[] = [
-    { name: 'pos', title: 'Pos', value: entity => entity.position },
-    { name: 'no', title: 'No', value: entity => entity.number },
+    { title: 'Pos', value: entity => entity.position },
+    { title: 'No', value: entity => entity.number },
     {
-      name: 'driver',
       title: 'Driver',
       value: ({ Driver }) => `${Driver.givenName} ${Driver.familyName}`,
     },
-    {
-      name: 'constructor',
-      title: 'Constructor',
-      value: ({ Constructor }) => Constructor.name,
-    },
-    { name: 'laps', title: 'Laps', value: entity => entity.laps },
-    { name: 'grid', title: 'Grid', value: entity => entity.grid },
-    { name: 'time', title: 'Time', value: ({ Time }) => Time?.time ?? '' },
-    { name: 'status', title: 'Status', value: entity => entity.status },
-    { name: 'points', title: 'Points', value: entity => entity.points },
+    { title: 'Constructor', value: ({ Constructor }) => Constructor.name },
+    { title: 'Laps', value: entity => entity.laps },
+    { title: 'Grid', value: entity => entity.grid },
+    { title: 'Time', value: ({ Time }) => Time?.time ?? '' },
+    { title: 'Status', value: entity => entity.status },
+    { title: 'Points', value: entity => entity.points },
   ];
 }

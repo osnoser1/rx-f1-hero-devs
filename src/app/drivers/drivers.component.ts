@@ -27,25 +27,15 @@ export class DriversComponent {
   onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toDriverQueryParams);
 
   columns: TablePreviewColumn<Driver>[] = [
-    { name: 'id', title: 'Id', value: entity => entity.driverId },
+    { title: 'Id', value: entity => entity.driverId },
     {
-      name: 'name',
       title: 'Name',
       value: entity => `${entity.givenName} ${entity.familyName}`,
     },
+    { title: 'Permanent Number', value: entity => entity.permanentNumber },
+    { title: 'Nationality', value: entity => entity.nationality },
+    { title: 'DOB', value: entity => entity.dateOfBirth },
     {
-      name: 'permanentNumber',
-      title: 'Permanent Number',
-      value: entity => entity.permanentNumber,
-    },
-    {
-      name: 'nationality',
-      title: 'Nationality',
-      value: entity => entity.nationality,
-    },
-    { name: 'dob', title: 'DOB', value: entity => entity.dateOfBirth },
-    {
-      name: 'info',
       title: 'Information',
       value: { url: entity => entity.url, text: 'Biography' },
       type: 'link',

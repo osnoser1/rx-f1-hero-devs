@@ -33,20 +33,15 @@ export class QualifyingComponent {
   onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toQualifyingQueryParams);
 
   columns: TablePreviewColumn<QualifyingResult>[] = [
-    { name: 'pos', title: 'Pos', value: entity => entity.position },
-    { name: 'no', title: 'No', value: entity => entity.number },
+    { title: 'Pos', value: entity => entity.position },
+    { title: 'No', value: entity => entity.number },
     {
-      name: 'driver',
       title: 'Driver',
       value: ({ Driver }) => `${Driver.givenName} ${Driver.familyName}`,
     },
-    {
-      name: 'constructor',
-      title: 'Constructor',
-      value: ({ Constructor }) => Constructor.name,
-    },
-    { name: 'q1', title: 'Q1', value: entity => entity.Q1 },
-    { name: 'q2', title: 'Q2', value: entity => entity.Q2 },
-    { name: 'q3', title: 'Q3', value: entity => entity.Q3 },
+    { title: 'Constructor', value: ({ Constructor }) => Constructor.name },
+    { title: 'Q1', value: entity => entity.Q1 },
+    { title: 'Q2', value: entity => entity.Q2 },
+    { title: 'Q3', value: entity => entity.Q3 },
   ];
 }

@@ -27,18 +27,16 @@ export class DriverStandingsComponent {
   onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toDriverStandingsQueryParams);
 
   columns: TablePreviewColumn<DriverStanding>[] = [
-    { name: 'pos', title: 'Pos', value: entity => entity.position },
+    { title: 'Pos', value: entity => entity.position },
     {
-      name: 'driver',
       title: 'Driver',
       value: ({ Driver }) => `${Driver.givenName} ${Driver.familyName}`,
     },
     {
-      name: 'constructor',
       title: 'Constructor',
       value: ({ Constructors }) => Constructors[0]?.name,
     },
-    { name: 'points', title: 'Points', value: entity => entity.points },
-    { name: 'wins', title: 'Wins', value: entity => entity.wins },
+    { title: 'Points', value: entity => entity.points },
+    { title: 'Wins', value: entity => entity.wins },
   ];
 }
