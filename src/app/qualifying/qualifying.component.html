@@ -1,8 +1,9 @@
 <h1>Qualifying Results per race</h1>
-<app-filters
+<app-list-filter
+  [filters]="filters"
   [query]="facade.queryParams$ | async"
   (queryChange)="onQueryChange($event)"
-></app-filters>
+/>
 <ng-container *ngIf="facade.data$ | async as data">
   <ng-container *ngFor="let race of data.result; let last = last">
     <h2>{{ race.season }} {{ race.raceName }}</h2>

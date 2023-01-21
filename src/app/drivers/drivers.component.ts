@@ -5,16 +5,17 @@ import { DriversFacade } from './services/drivers.facade';
 import {
   TablePreviewComponent,
   TablePreviewColumn,
+  ListFilterItem,
+  ListFilterComponent,
 } from '../shared/components';
 import { Driver } from '../core/types';
-import { FiltersComponent } from './filters/filters.component';
 import { toDriverQueryParams } from './utils/driver-query-object';
 import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-drivers',
   standalone: true,
-  imports: [CommonModule, FiltersComponent, TablePreviewComponent],
+  imports: [CommonModule, TablePreviewComponent, ListFilterComponent],
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss'],
   providers: [DriversFacade],
@@ -39,6 +40,15 @@ export class DriversComponent {
       title: 'Information',
       value: { url: entity => entity.url, text: 'Biography' },
       type: 'link',
+    },
+  ];
+
+  filters: ListFilterItem[] = [
+    {
+      name: 'season',
+      title: 'Season',
+      type: 'select',
+      options: [2018, 2019, 2020, 2021, 2022],
     },
   ];
 }

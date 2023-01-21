@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RacesFacade } from '../races/services/races.facade';
 import {
   FullScreenLoadingSpinnerComponent,
+  ListFilterComponent,
+  ListFilterItem,
   TablePreviewColumn,
   TablePreviewComponent,
 } from '../shared/components';
 import { RaceResult } from '../core/types';
-import { FiltersComponent } from './filters/filters.component';
 import { toRaceQueryParams } from './utils/race-query-object';
 import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
@@ -17,9 +18,9 @@ import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
   standalone: true,
   imports: [
     CommonModule,
-    FiltersComponent,
     TablePreviewComponent,
     FullScreenLoadingSpinnerComponent,
+    ListFilterComponent,
   ],
   templateUrl: './races.component.html',
   styleUrls: ['./races.component.scss'],
@@ -45,5 +46,14 @@ export class RacesComponent {
     { title: 'Time', value: ({ Time }) => Time?.time ?? '' },
     { title: 'Status', value: entity => entity.status },
     { title: 'Points', value: entity => entity.points },
+  ];
+
+  filters: ListFilterItem[] = [
+    {
+      name: 'season',
+      title: 'Season',
+      type: 'select',
+      options: [2018, 2019, 2020, 2021, 2022],
+    },
   ];
 }

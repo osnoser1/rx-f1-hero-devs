@@ -6,18 +6,19 @@ import {
   TablePreviewComponent,
   TablePreviewColumn,
   FullScreenLoadingSpinnerComponent,
+  ListFilterComponent,
 } from '../shared/components';
 import { QualifyingResult } from '../core/types';
-import { FiltersComponent } from './filters/filters.component';
 import { toQualifyingQueryParams } from './utils/qualifying-query-object';
 import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
+import { ListFilterItem } from '../shared/components/list-filter/list-filter-item';
 
 @Component({
   selector: 'app-qualifying',
   standalone: true,
   imports: [
     CommonModule,
-    FiltersComponent,
+    ListFilterComponent,
     TablePreviewComponent,
     FullScreenLoadingSpinnerComponent,
   ],
@@ -43,5 +44,27 @@ export class QualifyingComponent {
     { title: 'Q1', value: entity => entity.Q1 },
     { title: 'Q2', value: entity => entity.Q2 },
     { title: 'Q3', value: entity => entity.Q3 },
+  ];
+
+  filters: ListFilterItem[] = [
+    {
+      name: 'season',
+      title: 'Season',
+      type: 'select',
+      options: [2018, 2019, 2020, 2021, 2022],
+    },
+    {
+      name: 'round',
+      title: 'Round',
+      type: 'select',
+      options: [
+        { value: 'all', text: 'All' },
+        // Just for code formatting 😜
+        ...[
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+          21, 22, 23,
+        ],
+      ],
+    },
   ];
 }
