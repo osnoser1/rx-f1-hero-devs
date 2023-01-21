@@ -5,7 +5,6 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -17,7 +16,6 @@ import { ErrorService } from '../core/services';
   selector: 'app-layout',
   standalone: true,
   imports: [
-    CommonModule,
     RouterOutlet,
     MatSnackBarModule,
     MatSidenavModule,
