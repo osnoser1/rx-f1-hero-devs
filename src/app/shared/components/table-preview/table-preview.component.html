@@ -16,7 +16,10 @@
   <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-  <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
+  <ng-container
+    *ngFor="let column of columns; let i = index"
+    [matColumnDef]="getColumnName(column, i)"
+  >
     <mat-header-cell *matHeaderCellDef="let element">
       {{ get(column.title, element) }}
     </mat-header-cell>

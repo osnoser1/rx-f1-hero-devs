@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { combineLatest, map, shareReplay, Subject } from 'rxjs';
+import { combineLatest, shareReplay } from 'rxjs';
 import { CarStatus, StatisticsService } from './statistics.service';
 import { LoadingService } from '../core/services';
 import { indicate } from '../core/utils';
@@ -19,19 +19,19 @@ export class StatisticsComponent {
   statisticsService = inject(StatisticsService);
 
   private readonly year = 2021;
-  private readonly destroy$ = new Subject<void>();
 
-  data$ = combineLatest([
-    this.statisticsService.getTotalCars(CarStatus.Finished, this.year),
-    this.statisticsService.getTotalCars(CarStatus.Accident, this.year),
-    this.statisticsService.getTotalCars(CarStatus.PlusOneLap, this.year),
-  ]).pipe(
-    indicate(this.loading),
-    map(([finished, accident, plusOneLap]) => ({
-      finished,
-      accident,
-      plusOneLap,
-    })),
-    shareReplay(1),
-  );
+  data$ = combineLatest({
+    finished: this.statisticsService.getTotalCars(
+      CarStatus.Finished,
+      this.year,
+    ),
+    accident: this.statisticsService.getTotalCars(
+      CarStatus.Accident,
+      this.year,
+    ),
+    plusOneLap: this.statisticsService.getTotalCars(
+      CarStatus.PlusOneLap,
+      this.year,
+    ),
+  }).pipe(indicate(this.loading), shareReplay(1));
 }

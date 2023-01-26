@@ -1,0 +1,18 @@
+<ng-container *ngFor="let filter of filters">
+  <mat-form-field [ngStyle]="{ marginRight: '20px' }">
+    <mat-label>{{ filter.title }}</mat-label>
+    <mat-select
+      *ngIf="filter.type === 'select'"
+      [appSelectFilter]="filter.name"
+      [value]="query?.[filter.name]"
+      (queryChange)="queryChange.emit($event)"
+    >
+      <mat-option
+        *ngFor="let option of filter.options"
+        [value]="getSelectOption(option, 'value')"
+      >
+        {{ getSelectOption(option, 'text') }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-container>

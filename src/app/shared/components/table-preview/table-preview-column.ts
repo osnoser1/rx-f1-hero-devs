@@ -1,5 +1,5 @@
 interface Column<T> {
-  name: string;
+  name?: string;
   title: string | ((entity: T) => string);
   type?: 'text' | 'link';
 }

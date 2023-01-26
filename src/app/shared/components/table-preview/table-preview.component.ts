@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableModule } from '@angular/material/table';
-import { isString } from 'lodash-es';
+import { camelCase, isString } from 'lodash-es';
 import { ListResponse, Nil, PageQuery } from '../../../core/types';
 import { TablePreviewColumn } from './table-preview-column';
 
@@ -46,11 +46,15 @@ export class TablePreviewComponent<T> implements OnChanges {
     return isString(prop) ? prop : prop(entity);
   }
 
+  getColumnName({ name, title }: TablePreviewColumn<T>, index: number) {
+    return camelCase(name ?? this.get(title, {} as any) ?? `column-${index}`);
+  }
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['columns']) {
       this.displayedColumns = (
         (changes['columns'].currentValue ?? []) as TablePreviewColumn<T>[]
-      ).map(({ name }) => name);
+      ).map(this.getColumnName.bind(this));
     }
   }
 }

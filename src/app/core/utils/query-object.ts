@@ -1,7 +1,8 @@
-import { Params } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { toCamelCase } from './to-camel-case';
-import { isNil, kebabCase, omitBy } from 'lodash-es';
-import { QueryParamValue } from '../types';
+import { kebabCase } from 'lodash-es';
+import { PageQuery, QueryParamValue } from '../types';
 
 export function toQueryObject(params: Params) {
   const queryObject = Object.entries(toCamelCase(params)).reduce(
@@ -33,4 +34,20 @@ export function toQueryParams(query: Record<string, any>) {
       }),
       {} as Record<string, QueryParamValue>,
     );
+}
+
+export function getOnQueryChange(
+  toQueryParamsFunc: (query: PageQuery) => Record<string, QueryParamValue>,
+) {
+  const router = inject(Router);
+  const route = inject(ActivatedRoute);
+
+  return async function onQueryChange(query: PageQuery) {
+    return await router.navigate([], {
+      queryParams: toQueryParamsFunc({
+        ...route.snapshot.queryParams,
+        ...query,
+      }),
+    });
+  };
 }

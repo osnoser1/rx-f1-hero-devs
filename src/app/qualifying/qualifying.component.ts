@@ -1,23 +1,24 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QualifyingFacade } from './services/qualifying.facade';
 import {
   TablePreviewComponent,
   TablePreviewColumn,
   FullScreenLoadingSpinnerComponent,
+  ListFilterComponent,
 } from '../shared/components';
-import { Qualifying, PageQuery, QualifyingResult } from '../core/types';
-import { FiltersComponent } from './filters/filters.component';
+import { QualifyingResult } from '../core/types';
 import { toQualifyingQueryParams } from './utils/qualifying-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
+import { ListFilterItem } from '../shared/components/list-filter/list-filter-item';
 
 @Component({
   selector: 'app-qualifying',
   standalone: true,
   imports: [
     CommonModule,
-    FiltersComponent,
+    ListFilterComponent,
     TablePreviewComponent,
     FullScreenLoadingSpinnerComponent,
   ],
@@ -30,31 +31,40 @@ export class QualifyingComponent {
   facade = inject(QualifyingFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toQualifyingQueryParams);
 
   columns: TablePreviewColumn<QualifyingResult>[] = [
-    { name: 'pos', title: 'Pos', value: entity => entity.position },
-    { name: 'no', title: 'No', value: entity => entity.number },
+    { title: 'Pos', value: entity => entity.position },
+    { title: 'No', value: entity => entity.number },
     {
-      name: 'driver',
       title: 'Driver',
       value: ({ Driver }) => `${Driver.givenName} ${Driver.familyName}`,
     },
-    {
-      name: 'constructor',
-      title: 'Constructor',
-      value: ({ Constructor }) => Constructor.name,
-    },
-    { name: 'q1', title: 'Q1', value: entity => entity.Q1 },
-    { name: 'q2', title: 'Q2', value: entity => entity.Q2 },
-    { name: 'q3', title: 'Q3', value: entity => entity.Q3 },
+    { title: 'Constructor', value: ({ Constructor }) => Constructor.name },
+    { title: 'Q1', value: entity => entity.Q1 },
+    { title: 'Q2', value: entity => entity.Q2 },
+    { title: 'Q3', value: entity => entity.Q3 },
   ];
 
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toQualifyingQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
+  filters: ListFilterItem[] = [
+    {
+      name: 'season',
+      title: 'Season',
+      type: 'select',
+      options: [2018, 2019, 2020, 2021, 2022],
+    },
+    {
+      name: 'round',
+      title: 'Round',
+      type: 'select',
+      options: [
+        { value: 'all', text: 'All' },
+        // Just for code formatting 😜
+        ...[
+          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+          21, 22, 23,
+        ],
+      ],
+    },
+  ];
 }

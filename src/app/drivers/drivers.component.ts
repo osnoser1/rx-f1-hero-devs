@@ -5,15 +5,17 @@ import { DriversFacade } from './services/drivers.facade';
 import {
   TablePreviewComponent,
   TablePreviewColumn,
+  ListFilterItem,
+  ListFilterComponent,
 } from '../shared/components';
-import { Driver, PageQuery } from '../core/types';
-import { FiltersComponent } from './filters/filters.component';
+import { Driver } from '../core/types';
 import { toDriverQueryParams } from './utils/driver-query-object';
+import { ON_QUERY_CHANGE_FUNC } from '../core/tokens';
 
 @Component({
   selector: 'app-drivers',
   standalone: true,
-  imports: [CommonModule, FiltersComponent, TablePreviewComponent],
+  imports: [CommonModule, TablePreviewComponent, ListFilterComponent],
   templateUrl: './drivers.component.html',
   styleUrls: ['./drivers.component.scss'],
   providers: [DriversFacade],
@@ -23,39 +25,30 @@ export class DriversComponent {
   facade = inject(DriversFacade);
   route = inject(ActivatedRoute);
   router = inject(Router);
+  onQueryChange = inject(ON_QUERY_CHANGE_FUNC)(toDriverQueryParams);
 
   columns: TablePreviewColumn<Driver>[] = [
-    { name: 'id', title: 'Id', value: entity => entity.driverId },
+    { title: 'Id', value: entity => entity.driverId },
     {
-      name: 'name',
       title: 'Name',
       value: entity => `${entity.givenName} ${entity.familyName}`,
     },
+    { title: 'Permanent Number', value: entity => entity.permanentNumber },
+    { title: 'Nationality', value: entity => entity.nationality },
+    { title: 'DOB', value: entity => entity.dateOfBirth },
     {
-      name: 'permanentNumber',
-      title: 'Permanent Number',
-      value: entity => entity.permanentNumber,
-    },
-    {
-      name: 'nationality',
-      title: 'Nationality',
-      value: entity => entity.nationality,
-    },
-    { name: 'dob', title: 'DOB', value: entity => entity.dateOfBirth },
-    {
-      name: 'info',
       title: 'Information',
       value: { url: entity => entity.url, text: 'Biography' },
       type: 'link',
     },
   ];
 
-  async onQueryChange(query: PageQuery) {
-    return await this.router.navigate([], {
-      queryParams: toDriverQueryParams({
-        ...this.route.snapshot.queryParams,
-        ...query,
-      }),
-    });
-  }
+  filters: ListFilterItem[] = [
+    {
+      name: 'season',
+      title: 'Season',
+      type: 'select',
+      options: [2018, 2019, 2020, 2021, 2022],
+    },
+  ];
 }

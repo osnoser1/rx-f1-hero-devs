@@ -1,8 +1,9 @@
 <h1>Drivers per season</h1>
-<app-filters
+<app-list-filter
+  [filters]="filters"
   [query]="facade.queryParams$ | async"
   (queryChange)="onQueryChange($event)"
-></app-filters>
+/>
 <app-table-preview
   [columns]="columns"
   [data]="facade.data$ | async"
